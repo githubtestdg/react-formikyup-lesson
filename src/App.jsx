@@ -8,34 +8,31 @@ import Categories from "./pages/blog/Categories";
 import Post from "./pages/blog/Post";
 import Page404 from "./pages/404";
 import Blog404 from "./pages/blog/Blog404";
+import Profile from "./pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthLayout from "./auth/AuthLayout";
+import Login from "./auth/Login";
+import HomeLayout from "./HomeLayout";
+
+
 
 export default function App() {
   return (
   <>
-
-    <nav>
-      <NavLink to="/" className={({isActive}) =>  isActive && 'aktif'} >Anasayfa</NavLink>
-      <NavLink to="/contact">Contact</NavLink>
-      <NavLink to="/blog" style={({isActive}) => ({
-        backgroundColor : isActive ? '#351232' : 'white'
-      }) }>
-        {({isActive}) => (
-          <>
-          Blog
-          {isActive && '(Aktif)'}
-          </>
-          )}
-      </NavLink>
-    </nav>
-
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/contact" element={<Contact/>} />
-      <Route path="/blog" element={<BlogLayout />} >
-          <Route index={true} element={<Blog />} />
-          <Route path="categories" element={<Categories />}/>
-          <Route path="post/:id/:url" element={<Post />}/>
-          <Route path="*" element={<Blog404 />} />
+      <Route path={'/'} element={<HomeLayout/>}>
+        <Route index={true} element={<Home />} />
+        <Route path="contact" element={<Contact/>} />
+        <Route path="blog" element={<BlogLayout />} >
+            <Route index={true} element={<Blog />} />
+            <Route path="categories" element={<Categories />}/>
+            <Route path="post/:id/:url" element={<Post />}/>
+            <Route path="*" element={<Blog404 />} />
+        </Route>
+      <Route path='/profile' element={<PrivateRoute><Profile/></PrivateRoute>} />
+      </Route>
+      <Route path={'/auth'} element={<AuthLayout/>}>
+        <Route path={'login'} element={<Login/>}/>
       </Route>
       <Route path="*" element={<Page404 />} />
     </Routes>
