@@ -17,56 +17,68 @@ const routes = [
     {
         path: '/',
         element : <HomeLayout/>,
+        name: 'home',
         children:[
             {
                 index: true,
-                element: <Home/>
+                element: <Home/>,
+                name: 'index'
             },
             {
                 path:'contact',
-                element: <Contact/>
+                element: <Contact/>,
+                name:'contact'
             },
             {
                 path: 'blog',
                 element: <BlogLayout/>,
                 auth: true,
+                name:'blog',
                 children:[
                     {
                         index: true,
-                        element: <Blog/>
+                        element: <Blog/>,
+                        name:'index'
                     },
                     {
                         path:'categories',
-                        element: <Categories/>
+                        element: <Categories/>,
+                        name:'categories'
                     },
                     {
                         path: 'post/:id/:url',
-                        element: <Post/>
+                        element: <Post/>,
+                        name:'post'
                     },
                     {
                         path: '*',
-                        element: <Blog404/>
+                        element: <Blog404/>,
+                        name:'blogNotFound'
                     }
                 ]
             },
             {
                 path:'profile',
                 element: <Profile/>,
-                auth: true
+                auth: true,
+                name:'profile'
             }
         ]
     },
     {
         path: '/auth',
         element: <AuthLayout/>,
+        name:'auth',
         children: [{
             path: 'login',
-            element: <Login/>
+            element: <Login/>,
+            name:'login'
         }]
     },
     {
         path: '*',
-        element: <Page404/>
+        element: <Page404/>,
+        name:'notFound'
     }
 ]
 
