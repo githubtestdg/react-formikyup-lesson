@@ -1,17 +1,19 @@
 import {useAuth} from "../context/AuthContext";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 export default function Login(){
 
     const {setUser} = useAuth()
-    const navigate = useNavigate()
+    const navigate  = useNavigate()
+    const location = useLocation()
 
+    console.log(location)
     const loginHandle = ()=> {
         setUser({
             id : 1,
             username : 'tyf',
         })
-        navigate('/')
+        navigate(location?.state?.return_url || '/')
     }
 
     return(
