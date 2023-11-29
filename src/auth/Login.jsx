@@ -1,5 +1,7 @@
 import {useAuth} from "../context/AuthContext";
 import {useLocation, useNavigate} from "react-router-dom";
+import { Helmet } from "react-helmet";
+
 
 export default function Login(){
 
@@ -18,6 +20,10 @@ export default function Login(){
 
     return(
         <>
+            <Helmet>
+                <title>Login</title>
+                <meta name={'description'} content={'Login description'} />
+            </Helmet>
             <h2>Login Page</h2>
             <button onClick={loginHandle}>Login</button>
         </>
