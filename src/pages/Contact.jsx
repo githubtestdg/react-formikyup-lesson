@@ -2,6 +2,10 @@ import {Formik,Form, Field} from "formik";
 import {Helmet} from 'react-helmet'
 import Input from "../components/form/Input";
 import File from "../components/form/File";
+import Checkbox from "../components/form/Checkbox";
+import Textarea from "../components/form/Textarea";
+import Select from "../components/form/Select";
+
 
 
 export default function Contact () {
@@ -15,28 +19,26 @@ export default function Contact () {
             <Formik initialValues={{name:'Tayfun',about:'',gender:2,accept:false,skills:['php','css'],avatar:''}} onSubmit={values => {console.log(values)}} >
                 {({values}) => (
                     <Form className={'p-6'}>
-                        <Input name={'name'} /> <br/>
-                        <Field component={'textarea'} cols={20} rows={5} name={'about'} /> <br/>
-                        <label>
-                            <Field type={'checkbox'} name={'accept'}/>
-                            Kuralları kabul ediyorum!
-                        </label><br/>
-                        <Field component={'select'} name={'gender'}>
-                            <option value={1}>Kadın</option>
-                            <option value={2}>Erkek</option>
-                        </Field><br/>
-                        <Field component={'select'} name={'skills'} multiple={true}>
-                            <option value={'php'}>Php</option>
-                            <option value={'css'}>Css</option>
-                            <option value={'js'}>JavaScript</option>
-                            <option value={'html'}>Html</option>
-                        </Field><br/>
+                        <Input label={'Ad - Soyad'} name={'name'} /> <br/>
+                        <Textarea label={'Hakkında'} name={'about'} rows={4}/> <br/>
+                        <Checkbox label={"Kuralları kabul ediyorum!"} name={"accept"}/> <br/>
+                        <Select label={'Cinsiyet'} name={'gender'} original={true} options={[
+                            { key: 1, value: 'Kadın' },
+                            { key: 2, value: 'Erkek' },
+                        ]} />
+                        <Select label={'Skills'} name={'skills'} multiple={true} options={[
+                            {key :0, value : 'php'},
+                            {key :1, value : 'css'},
+                            {key :2, value : 'js'},
+                            {key :3, value : 'html'},
+                        ]} />
                         <File label={'Avatar'} name={'avatar'} /> <br/>
                         <button type="submit" disabled={!values.accept}>Gönder</button>
+                        <pre> {JSON.stringify(values, null,2)} </pre>
                     </Form>
+
                 )}
             </Formik>
-
             Contact Page
         </div>
     );
