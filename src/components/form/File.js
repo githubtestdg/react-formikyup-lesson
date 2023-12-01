@@ -1,4 +1,4 @@
-import {useField} from "formik";
+import {ErrorMessage, useField} from "formik";
 import {FiCheck} from "react-icons/fi";
 
 export default function File({label, ...props}) {
@@ -15,6 +15,7 @@ export default function File({label, ...props}) {
     }
 
     return (
+        <>
         <div className='block w-full'>
             <div className='text-sm text-gray-600 block mb-1.5'>{label}</div>
             <button type={'button'} onClick={fileOpen} className='px-5 inline-flex items-center gap-2 text-sm rounded bg-blue-50 h-10 text-blue-500'>
@@ -23,5 +24,7 @@ export default function File({label, ...props}) {
             </button>
             {field.value && <button className={'flex w-full text-sm underline text-gray-600 mt-2'} onClick={()=> helpers.setValue('')}>Dosyayı kaldır</button>}
         </div>
+            <ErrorMessage name={field.name} component={'small'} className={'text-xs mt-1 text-red-600'}/>
+        </>
     )
 }

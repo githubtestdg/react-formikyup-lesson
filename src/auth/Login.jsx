@@ -1,7 +1,9 @@
 import {useAuth} from "../context/AuthContext";
 import {useLocation, useNavigate} from "react-router-dom";
 import { Helmet } from "react-helmet";
-import {useFormik, Formik, Form, Field} from "formik";
+import { Formik, Form, Field} from "formik";
+import Input from "../components/form/Input";
+import {LoginSchema} from "../validation";
 
 
 export default function Login(){
@@ -21,19 +23,25 @@ export default function Login(){
                 username:'',
                 password:''
             }}
-            onSubmit={values => {
+            onSubmit={(values,actions) => {
                 setUser(values)
                 navigate(location?.state?.return_url || '/',{
                     replace : true
                 })
-                console.log(values)
+                setTimeout(()=>{
+                    actions.setSubmitting(false)
+                    actions.resetForm()
+                }, 3000)
             }}
+            validationSchema={LoginSchema}
             >
-                {({values}) => (
-                    <Form>
-                        <Field name={'username'}/> <br/>
-                        <Field name={'password'} type={'password'} /> <br/>
-                        <button type="submit">Giriş yap</button>
+                {({values,isSubmiting}) => (
+                    <Form className={'grid gap-y-3 p-4'}>
+                        <h1 className={'text-2xl font-bold mb-3'}>Giriş Yap</h1>
+                        <Input name={'username'} label={'Kullanıcı Adı'}/> <br/>
+                        <Input name={'password'} type={'password'} label={'Parola'}/> <br/>
+                        <button type="reset">Resetle</button>
+                        <button disabled={isSubmiting} type="submit" className={'bg-black h-10 rounded text-sm text-white disabled:opacity-50'}>Giriş yap</button>
                     </Form>
                 )}
             </Formik>
